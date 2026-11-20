@@ -1,0 +1,38 @@
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      PORT: 5000
+      MONGODB_URI: mongodb://mongo:27017/doomsday_ready
+      CORS_ORIGIN: http://localhost:8080
+      # Inserts the example MCU movies and demo cinemas on start. Safe to repeat.
+      SEED_ON_START: "true"
+    ports:
+      - "5000:5000" # exposed so the API can be called from Postman
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
