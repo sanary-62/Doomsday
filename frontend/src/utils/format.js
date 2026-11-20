@@ -1,4 +1,4 @@
-/** 1000 -> "16h 40m", 90 -> "1h 30m", 120 -> "2h", 45 -> "45m", 0 -> "0m" */
+
 export const formatDuration = (totalMinutes) => {
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
@@ -16,14 +16,12 @@ const POSTER_GRADIENTS = [
   'from-emerald-600 via-teal-900 to-ink-900',
 ];
 
-/** Stable gradient per title so each movie keeps the same placeholder poster colour. */
 export const posterGradient = (title) => {
   let hash = 0;
   for (const char of title) hash = (hash * 31 + char.charCodeAt(0)) >>> 0;
   return POSTER_GRADIENTS[hash % POSTER_GRADIENTS.length];
 };
 
-/** Maps the backend's field-level validation details to { field: message }. */
 export const fieldErrorsFrom = (error) => {
   const errors = {};
   (error?.details || []).forEach((detail) => {

@@ -18,10 +18,10 @@ services:
       PORT: 5000
       MONGODB_URI: mongodb://mongo:27017/doomsday_ready
       CORS_ORIGIN: http://localhost:8080
-      # Inserts the example MCU movies and demo cinemas on start. Safe to repeat.
+
       SEED_ON_START: "true"
     ports:
-      - "5000:5000" # exposed so the API can be called from Postman
+      - "5000:5000" 
     depends_on:
       mongo:
         condition: service_healthy

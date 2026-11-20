@@ -6,7 +6,7 @@ const MAX_SIZES = 10;
 const SIZE_MIN = 1;
 const SIZE_MAX = 500;
 
-/** Turns "2, 5, 9" into [2, 5, 9]; returns an error message for anything the backend would reject. */
+
 const parseBundleSizes = (text) => {
   const tokens = text
     .split(/[\s,]+/)

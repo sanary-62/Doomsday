@@ -1,6 +1,6 @@
 const BASE_URL = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
 
-/** Error carrying the backend's machine-readable code, message and field details. */
+
 export class ApiError extends Error {
   constructor(status, code, message, details = []) {
     super(message);

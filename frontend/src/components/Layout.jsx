@@ -17,14 +17,16 @@ export default function Layout() {
       <header className="sticky top-0 z-30 border-b border-ink-600/70 bg-ink-950/85 backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-3 sm:px-6">
           <NavLink to="/movies" className="flex items-center gap-2.5" aria-label="Doomsday Ready home">
-            <span
-              aria-hidden="true"
+            
+<span
+  aria-hidden="true"
               className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-red-600 text-lg shadow-glow"
             >
               ⏳
-            </span>
+</span>
+
             <span className="leading-tight">
-              <span className="block text-base font-bold tracking-tight text-white">Doomsday Ready</span>
+              <span className="block text-base font-bold tracking-tight text-white">Doomsday</span>
               <span className="block text-[11px] uppercase tracking-[0.18em] text-slate-400">MCU rewatch planner</span>
             </span>
           </NavLink>

@@ -23,11 +23,6 @@ const validate = ({ title, releaseYear, runtime }) => {
   return errors;
 };
 
-/**
- * Create / edit form. `movie` is null when creating.
- * A movie can never be chosen as its own prerequisite: it is removed from the picker.
- * Cycle checks stay on the server (single source of truth) and surface as a form error.
- */
 export default function MovieForm({ movie, allMovies, onSaved, onCancel }) {
   const isEditing = Boolean(movie);
   const [values, setValues] = useState({

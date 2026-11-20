@@ -1,8 +1,22 @@
+import { useState } from 'react';
 import { formatDuration, posterGradient } from '../utils/format';
 import { Switch } from './ui';
 
+const POSTERS = {
+  'Iron Man': 'https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg',
+  'Captain America: The First Avenger': 'https://image.tmdb.org/t/p/w500/vSNxAJTlD0r02V9sPYpOjqDZXUK.jpg',
+  'The Avengers': 'https://image.tmdb.org/t/p/w500/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg',
+  'Captain America: Civil War': 'https://image.tmdb.org/t/p/w500/rAGiXaUfPzY7CDEyNKUofk3Kw2e.jpg',
+  'Thor: Ragnarok': 'https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg',
+  'Avengers: Infinity War': 'https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg',
+  'Avengers: Endgame': 'https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg',
+};
+
 export default function MovieCard({ movie, titleById, pending, onToggleWatched, onEdit, onDelete }) {
+  const [imageFailed, setImageFailed] = useState(false);
   const prerequisiteTitles = movie.prerequisites.map((id) => titleById.get(id)).filter(Boolean);
+  const posterUrl = POSTERS[movie.title];
+  const showPoster = posterUrl && !imageFailed;
 
   return (
     <article
@@ -10,18 +24,30 @@ export default function MovieCard({ movie, titleById, pending, onToggleWatched, 
         movie.watched ? 'ring-1 ring-emerald-500/30' : ''
       }`}
     >
-      <div className={`relative flex h-28 items-end bg-gradient-to-br ${posterGradient(movie.title)} p-4`}>
-        <span className="absolute right-3 top-3 rounded-md bg-black/40 px-2 py-0.5 text-xs font-semibold text-white/90">
+      <div className={`relative flex h-64 items-end overflow-hidden bg-gradient-to-br ${posterGradient(movie.title)} p-4`}>
+        {showPoster && (
+          <img
+            src={posterUrl}
+            alt={`${movie.title} movie poster`}
+            className="absolute inset-0 mx-auto h-full max-w-full object-contain"
+            loading="lazy"
+            onError={() => setImageFailed(true)}
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-black/20" />
+        <span className="absolute right-3 top-3 z-10 rounded-md bg-black/60 px-2 py-0.5 text-xs font-semibold text-white/90">
           {movie.releaseYear ?? 'Year n/a'}
         </span>
         <span
-          className={`absolute left-3 top-3 rounded-md px-2 py-0.5 text-xs font-semibold ${
-            movie.watched ? 'bg-emerald-500/90 text-emerald-950' : 'bg-black/40 text-amber-200'
+          className={`absolute left-3 top-3 z-10 rounded-md px-2 py-0.5 text-xs font-semibold ${
+            movie.watched ? 'bg-emerald-500/90 text-emerald-950' : 'bg-black/60 text-amber-200'
           }`}
         >
           {movie.watched ? '✓ Watched' : 'To watch'}
         </span>
-        <h3 className="line-clamp-2 text-lg font-bold leading-snug text-white drop-shadow">{movie.title}</h3>
+        <h3 className="relative z-10 line-clamp-2 text-lg font-bold leading-snug text-white drop-shadow">
+          {movie.title}
+        </h3>
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-4">

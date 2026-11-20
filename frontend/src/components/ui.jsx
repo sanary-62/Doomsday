@@ -62,7 +62,6 @@ export function ProgressBar({ value, max, label }) {
   );
 }
 
-/** Accessible on/off switch used for the watched status. */
 export function Switch({ checked, onChange, label, disabled }) {
   return (
     <button
@@ -86,7 +85,6 @@ export function Switch({ checked, onChange, label, disabled }) {
   );
 }
 
-/** Modal built on the native <dialog> element: focus trapping and Escape handling come for free. */
 export function Modal({ title, onClose, children, size = 'md' }) {
   const dialogRef = useRef(null);
 
